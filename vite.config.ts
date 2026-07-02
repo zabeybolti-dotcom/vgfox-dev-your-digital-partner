@@ -16,4 +16,9 @@ export default defineConfig({
     static: true,
     server: { entry: "server" },
   },
+  nitro: {
+    output: {
+      publicDir: 'docs',
+    },
+  },
 });

@@ -1,15 +1,14 @@
-import { readdirSync, writeFileSync, cpSync, existsSync, rmSync, mkdirSync } from "fs";
+import { readdirSync, writeFileSync, existsSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const rootDir = join(__dirname, "..");
-const publicDir = join(rootDir, ".output", "public");
+const publicDir = join(rootDir, "docs");
 const assetsDir = join(publicDir, "assets");
-const docsDir = join(rootDir, "docs");
 
 if (!existsSync(assetsDir)) {
-  console.error("assets dir not found, skipping index generation");
+  console.error("assets dir not found in docs/, skipping index generation");
   process.exit(0);
 }
 
@@ -42,11 +41,6 @@ const html = `<!doctype html>
 </html>`;
 
 writeFileSync(join(publicDir, "index.html"), html);
-cpSync(join(publicDir, "index.html"), join(publicDir, "404.html"));
-console.log("index.html and 404.html generated in .output/public/");
-
-if (existsSync(docsDir)) rmSync(docsDir, { recursive: true });
-mkdirSync(docsDir, { recursive: true });
-cpSync(publicDir, docsDir, { recursive: true, filter: (src) => !src.includes("node_modules") });
-writeFileSync(join(docsDir, ".nojekyll"), "");
-console.log("copied to docs/ with .nojekyll");
+writeFileSync(join(publicDir, "404.html"), html);
+writeFileSync(join(publicDir, ".nojekyll"), "");
+console.log("index.html, 404.html, .nojekyll generated in docs/");
