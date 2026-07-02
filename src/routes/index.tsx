@@ -265,8 +265,8 @@ function Services() {
   ];
 
   return (
-    <section id="services" className="relative pt-32 sm:pt-48">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 mb-16 sm:mb-24 text-center">
+    <section id="services" className="relative pt-16 sm:pt-24">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 mb-8 sm:mb-12 text-center">
         <p className="text-apple-gray text-[15px] sm:text-[17px] uppercase tracking-[0.2em]">
           Услуги
         </p>
@@ -297,7 +297,7 @@ function ServiceBlock({
   index: number;
 }) {
   return (
-    <section className="pt-24 sm:pt-40 pb-8 sm:pb-16">
+    <section className="pt-12 sm:pt-20 pb-4 sm:pb-8">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -318,7 +318,7 @@ function ServiceBlock({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-        className="relative mt-14 sm:mt-20 mx-auto max-w-[1400px] px-4 sm:px-6"
+        className="relative mt-7 sm:mt-10 mx-auto max-w-[1400px] px-4 sm:px-6"
       >
         <div className="relative">
           <img
@@ -337,8 +337,8 @@ function ServiceBlock({
 /* ------------------------------ PORTFOLIO ------------------------------- */
 function Portfolio() {
   return (
-    <section id="portfolio" className="relative pt-32 sm:pt-56">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 mb-16 sm:mb-24 text-center">
+    <section id="portfolio" className="relative pt-16 sm:pt-28">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 mb-8 sm:mb-12 text-center">
         <p className="text-apple-gray text-[15px] sm:text-[17px] uppercase tracking-[0.2em]">
           Работы
         </p>
@@ -347,7 +347,7 @@ function Portfolio() {
         </h2>
       </div>
 
-      <div className="flex flex-col gap-24 sm:gap-40">
+      <div className="flex flex-col gap-12 sm:gap-20">
         {PROJECTS_DATA.map((p, i) => (
           <ProjectRow key={p.id} project={p} index={i} />
         ))}
@@ -384,7 +384,7 @@ function ProjectRow({
           />
         </div>
 
-        <div className="mt-8 sm:mt-10 max-w-[1000px] mx-auto text-center px-2">
+        <div className="mt-4 sm:mt-5 max-w-[1000px] mx-auto text-center px-2">
           <p className="text-apple-gray text-[13px] sm:text-[15px] uppercase tracking-[0.18em]">
             {String(index + 1).padStart(2, "0")} · {project.subtitle}
           </p>
@@ -422,7 +422,7 @@ function Philosophy() {
   ];
 
   return (
-    <section id="philosophy" className="relative pt-32 sm:pt-56 pb-24 sm:pb-40">
+    <section id="philosophy" className="relative pt-16 sm:pt-28 pb-12 sm:pb-20">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
         <p className="text-apple-gray text-[15px] sm:text-[17px] uppercase tracking-[0.2em]">
           Подход
@@ -434,7 +434,7 @@ function Philosophy() {
         </h2>
       </div>
 
-      <div className="mt-20 sm:mt-32 max-w-[1000px] mx-auto px-4 sm:px-6 flex flex-col gap-20 sm:gap-32">
+      <div className="mt-10 sm:mt-16 max-w-[1000px] mx-auto px-4 sm:px-6 flex flex-col gap-10 sm:gap-16">
         {items.map((it, i) => (
           <motion.div
             key={it.title}
@@ -471,7 +471,7 @@ function Contact() {
   return (
     <section
       id="contact"
-      className="relative pt-32 sm:pt-56 pb-24 sm:pb-40"
+      className="relative pt-16 sm:pt-28 pb-12 sm:pb-20"
     >
       <div className="max-w-[900px] mx-auto px-4 sm:px-6 text-center">
         <motion.h2
