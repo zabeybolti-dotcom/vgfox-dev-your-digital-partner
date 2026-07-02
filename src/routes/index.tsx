@@ -182,35 +182,27 @@ function Hero() {
   return (
     <section
       id="top"
-      className="relative min-h-[100svh] flex items-center justify-center text-center overflow-hidden"
+      className="relative pt-16 sm:pt-20 pb-0 text-center overflow-hidden"
     >
-      {/* Full-bleed background image */}
-      <div className="absolute inset-0 -z-10">
-        <img
-          src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=2400&q=90"
-          alt=""
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/70 backdrop-blur-[3px]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black" />
-      </div>
-
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="px-4 sm:px-6 pt-16"
+        className="px-4 sm:px-6"
       >
-        <h1 className="h-display text-2xl sm:text-4xl lg:text-5xl text-white">
+        <p className="text-mono uppercase tracking-[0.24em] text-[11px] sm:text-[13px] text-apple-gray">
           VGFOX DEV
+        </p>
+        <h1 className="h-display mt-3 sm:mt-4 text-[32px] sm:text-[56px] lg:text-[72px] text-white">
+          Цифровые продукты
+          <br className="hidden sm:block" /> для бизнеса.
         </h1>
-        <p className="mt-3 sm:mt-4 mx-auto max-w-[640px] text-[17px] sm:text-[22px] lg:text-[26px] leading-tight font-medium tracking-tight text-white/90">
-          Цифровые продукты для бизнеса,
-          <br className="hidden sm:block" />
+        <p className="mt-4 sm:mt-5 mx-auto max-w-[640px] text-[16px] sm:text-[20px] lg:text-[22px] leading-snug tracking-tight text-apple-gray">
+          Разрабатываю сайты под ключ, мобильные приложения и Telegram-ботов,
           которые приносят прибыль.
         </p>
 
-        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 text-[15px] sm:text-[17px]">
+        <div className="mt-5 sm:mt-7 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 text-[15px] sm:text-[17px]">
           <AppleLink href={TELEGRAM_URL} external>
             Обсудить проект в Telegram
           </AppleLink>
@@ -226,9 +218,27 @@ function Hero() {
           </button>
         </div>
       </motion.div>
+
+      {/* Hero cinematic image below content */}
+      <motion.div
+        initial={{ opacity: 0, y: 120 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        className="relative mt-8 sm:mt-12 mx-auto max-w-[1400px] px-4 sm:px-6"
+      >
+        <div className="relative">
+          <img
+            src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=2400&q=90"
+            alt=""
+            className="w-full aspect-[16/10] sm:aspect-[16/8] object-cover rounded-xl sm:rounded-2xl mask-fade-edges"
+          />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 sm:h-56 bg-gradient-to-b from-transparent to-black" />
+        </div>
+      </motion.div>
     </section>
   );
 }
+
 
 
 /* ------------------------------ SERVICES -------------------------------- */
