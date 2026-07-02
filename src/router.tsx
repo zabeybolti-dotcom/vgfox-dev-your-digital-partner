@@ -13,8 +13,8 @@ export const getRouter = () => {
   const router = createRouter({
     routeTree,
     history: routerHistory,
-    // Самое важное: basepath должен быть только в режиме продакшена! Локально он должен быть равен '/'
-    basepath: isProd ? '/vgfox-dev-your-digital-partner/' : '/',
+    // Хэш-история всегда даёт путь от корня (/), поэтому basepath всегда '/'
+    basepath: '/',
     context: { queryClient },
     defaultPreloadStaleTime: 0,
   });
