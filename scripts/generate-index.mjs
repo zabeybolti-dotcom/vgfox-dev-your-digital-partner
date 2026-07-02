@@ -28,15 +28,15 @@ const html = `<!doctype html>
     <meta property="og:description" content="Сайты, приложения, Telegram-боты и дизайн под ключ. От идеи до запуска." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="/vgfox-dev-your-digital-partner/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/vgfox-dev/favicon.ico" type="image/x-icon" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
-    ${css.map((f) => `<link rel="stylesheet" href="/vgfox-dev-your-digital-partner/assets/${f}" />`).join("\n    ")}
+    ${css.map((f) => `<link rel="stylesheet" href="/vgfox-dev/assets/${f}" />`).join("\n    ")}
   </head>
   <body>
     <div id="root"></div>
-    ${js.map((f) => `<script type="module" src="/vgfox-dev-your-digital-partner/assets/${f}"></script>`).join("\n    ")}
+    ${js.map((f) => `<script type="module" src="/vgfox-dev/assets/${f}"></script>`).join("\n    ")}
   </body>
 </html>`;
 
