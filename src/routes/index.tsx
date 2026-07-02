@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowRight, ArrowDown } from "lucide-react";
+import { Menu, X, ArrowRight, ArrowDown, MoreVertical, Send, FileText, Mail, ChevronRight } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: LandingPage,
@@ -37,19 +37,18 @@ const PROJECTS_DATA: {
 }[] = [
   {
     id: 1,
-    title: "LUXE — интернет-магазин одежды",
-    subtitle: "E-commerce · Next-gen retail",
-    result: "Конверсия в заказ +32%",
+    title: "OmniAI — кроссплатформенная ИИ-экосистема для бизнеса",
+    subtitle: "Enterprise / AI",
+    result: "Разработка закрытой Enterprise-платформы (Web / iOS / Android) для автоматизации аналитики и внутренних процессов компании на базе LLM-моделей.",
     image:
       "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=2200&q=85",
   },
   {
     id: 2,
-    title: "FinTap — Android-приложение банка",
-    subtitle: "Финтех · Мобильная разработка",
-    result: "Средняя оценка 4.8★ в Google Play",
-    image:
-      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=2200&q=85",
+    title: "ПРИБОР-Т1 — хроматический тюнер",
+    subtitle: "Android · Музыка",
+    result: "Высокоточный музыкальный настройщик для Android с живой неоновой аудио-волной и эталонной точностью.",
+    image: "/pribor.jpg",
   },
   {
     id: 3,
@@ -61,11 +60,10 @@ const PROJECTS_DATA: {
   },
   {
     id: 4,
-    title: "NORDEN — редизайн фирменного стиля",
+    title: "Редизайн и цифровая айдентика бренда",
     subtitle: "Брендинг · Айдентика",
-    result: "Премиум-позиционирование и рост узнаваемости",
-    image:
-      "https://images.unsplash.com/photo-1561070791-2526d30994b8?w=2200&q=85",
+    result: "Разработка премиального визуального стиля, шрифтовой системы и гайдлайнов для технологичных ИИ-продуктов.",
+    image: "/2.jpg",
   },
 ];
 
@@ -80,7 +78,6 @@ function LandingPage() {
       <Portfolio />
       <Philosophy />
       <Contact />
-      <Footer />
     </div>
   );
 }
@@ -124,6 +121,12 @@ function Nav() {
           </a>
 
           <nav className="hidden md:flex items-center gap-8">
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="apple-link text-[12px] text-white/80 hover:text-white transition-colors duration-300"
+            >
+              Главная
+            </button>
             {links.map((l) => (
               <button
                 key={l.href}
@@ -157,12 +160,24 @@ function Nav() {
             className="fixed inset-0 z-40 md:hidden bg-black pt-11"
           >
             <div className="px-6 py-6 flex flex-col divide-y divide-white/[0.06]">
+              <motion.button
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.05 }}
+                onClick={() => {
+                  setOpen(false);
+                  setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 60);
+                }}
+                className="text-left py-5 text-[22px] font-medium tracking-tight"
+              >
+                Главная
+              </motion.button>
               {links.map((l, i) => (
                 <motion.button
                   key={l.href}
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.05 + i * 0.04 }}
+                  transition={{ delay: 0.05 + (i + 1) * 0.04 }}
                   onClick={() => go(l.href)}
                   className="text-left py-5 text-[22px] font-medium tracking-tight"
                 >
@@ -182,24 +197,21 @@ function Hero() {
   return (
     <section
       id="top"
-      className="relative min-h-[100dvh] flex items-center justify-center text-center overflow-hidden"
+      className="relative min-h-[100dvh] flex items-center justify-center text-center bg-black overflow-hidden"
     >
-      {/* Background image */}
       <img
-        src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=2400&q=90"
-        alt=""
-        className="absolute inset-0 w-full h-full object-cover"
+        src="/11.jpg"
+        alt="AI Waves"
+        className="absolute inset-0 w-full h-full object-cover object-center z-0 opacity-80"
       />
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/60" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black z-10" />
 
-      {/* Text content centered on top */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-10 px-4 sm:px-6"
+        className="relative z-20 px-4 sm:px-6"
       >
         <p className="font-mono uppercase tracking-[0.24em] text-[11px] sm:text-[13px] text-apple-gray">
           VGFOX DEV
@@ -239,97 +251,50 @@ function Hero() {
 function Services() {
   const items = [
     {
-      title: "Telegram-боты.",
+      title: "Telegram-боты",
       desc: "Автоматизация сложных бизнес-процессов, умные воронки продаж и поддержка клиентов 24/7.",
-      image:
-        "https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?w=2000&q=85",
     },
     {
-      title: "Android-приложения.",
+      title: "Android-приложения",
       desc: "Проектирование интерфейсов, разработка логики и публикация в сторы под ключ.",
-      image:
-        "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=2000&q=85",
     },
     {
-      title: "Сайты и e-commerce.",
-      desc: "Быстрые, технологичные интернет-магазины и лендинги, полностью готовые к запуску рекламы.",
-      image:
-        "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=2000&q=85",
+      title: "Сайты и e-commerce",
+      desc: "Быстрые, технологичные интернет-магазины и лендинги, готовые к запуску рекламы.",
     },
     {
-      title: "Дизайн чего угодно.",
+      title: "Дизайн чего угодно",
       desc: "Графика, фирменный стиль, логотипы и глубокий UX/UI для компаний любого масштаба.",
-      image:
-        "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=2000&q=85",
     },
   ];
 
   return (
-    <section id="services" className="relative pt-16 sm:pt-24">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 mb-8 sm:mb-12 text-center">
-        <p className="text-apple-gray text-[15px] sm:text-[17px] uppercase tracking-[0.2em]">
-          Услуги
-        </p>
-        <h2 className="h-display mt-4 text-[40px] sm:text-[72px] lg:text-[88px]">
-          Один эксперт.
-          <br />
-          Четыре направления.
+    <section id="services" className="bg-black">
+      <div className="max-w-6xl mx-auto px-6 py-24">
+        <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-16 text-center">
+          Один эксперт. Четыре направления.
         </h2>
-      </div>
 
-      <div className="flex flex-col">
-        {items.map((it, i) => (
-          <ServiceBlock key={it.title} {...it} index={i} />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function ServiceBlock({
-  title,
-  desc,
-  image,
-}: {
-  title: string;
-  desc: string;
-  image: string;
-  index: number;
-}) {
-  return (
-    <section className="pt-12 sm:pt-20 pb-4 sm:pb-8">
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center"
-      >
-        <h3 className="h-display text-[44px] sm:text-[80px] lg:text-[104px] text-white">
-          {title}
-        </h3>
-        <p className="mt-5 sm:mt-6 mx-auto max-w-[720px] text-[18px] sm:text-[24px] lg:text-[28px] leading-snug text-apple-gray tracking-tight">
-          {desc}
-        </p>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 60 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-        className="relative mt-7 sm:mt-10 mx-auto max-w-[1400px] px-4 sm:px-6"
-      >
-        <div className="relative">
-          <img
-            src={image}
-            alt=""
-            loading="lazy"
-            className="w-full aspect-[16/10] sm:aspect-[16/8] object-cover rounded-xl sm:rounded-2xl mask-fade-edges"
-          />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 sm:h-48 bg-gradient-to-b from-transparent to-black" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {items.map((item, i) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="bg-neutral-900/50 backdrop-blur-md rounded-3xl p-8 md:p-10 border border-white/[0.05] hover:border-white/20 transition-all duration-300"
+            >
+              <h3 className="text-2xl font-semibold mb-3 text-white">
+                {item.title}
+              </h3>
+              <p className="text-[#86868b] text-base leading-relaxed">
+                {item.desc}
+              </p>
+            </motion.div>
+          ))}
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
@@ -337,124 +302,279 @@ function ServiceBlock({
 /* ------------------------------ PORTFOLIO ------------------------------- */
 function Portfolio() {
   return (
-    <section id="portfolio" className="relative pt-16 sm:pt-28">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 mb-8 sm:mb-12 text-center">
-        <p className="text-apple-gray text-[15px] sm:text-[17px] uppercase tracking-[0.2em]">
-          Работы
-        </p>
-        <h2 className="h-display mt-4 text-[40px] sm:text-[72px] lg:text-[88px]">
+    <section id="portfolio" className="bg-black py-24">
+      <div className="max-w-6xl mx-auto px-6">
+        <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-16 text-center">
           Избранные концепты.
         </h2>
-      </div>
 
-      <div className="flex flex-col gap-12 sm:gap-20">
-        {PROJECTS_DATA.map((p, i) => (
-          <ProjectRow key={p.id} project={p} index={i} />
-        ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {PROJECTS_DATA.map((p, i) => (
+            <motion.div
+              key={p.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {p.id === 2 ? (
+                <div className="block group">
+                  <div className="overflow-hidden rounded-2xl mb-4">
+                    <img
+                      src={p.image}
+                      alt={p.title}
+                      loading="lazy"
+                      className="w-full h-[240px] md:h-[280px] object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                    />
+                  </div>
+                  <div>
+                    <span className="inline-block bg-white/10 backdrop-blur-md text-white rounded-full px-3 py-1 text-xs">
+                      {p.subtitle}
+                    </span>
+                    <h3 className="text-xl md:text-2xl font-bold text-white mt-3 mb-2">
+                      {p.title}
+                    </h3>
+                    <p className="text-sm text-neutral-300">
+                      {p.result}
+                    </p>
+                    <a
+                      href="https://www.rustore.ru/catalog/app/com.wavestudio.pribort1"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#0066cc] hover:text-[#0077ed] text-sm font-medium inline-flex items-center gap-1 mt-2 transition-colors"
+                    >
+                      Смотреть в RuStore &gt;
+                    </a>
+                  </div>
+                </div>
+              ) : p.id === 3 ? (
+                <div className="block group">
+                  <div className="overflow-hidden rounded-2xl mb-4 w-full h-[240px] md:h-[280px]">
+                    <div className="w-full h-full bg-[#182533] font-sans flex flex-col">
+                      <div className="w-full h-12 bg-[#24303f] flex items-center justify-between px-3 border-b border-black/10 shrink-0">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center font-bold text-white text-xs">
+                            M
+                          </div>
+                          <div>
+                            <p className="text-xs font-semibold text-white leading-tight">MedBot 🤖</p>
+                            <p className="text-[10px] text-[#7da3c5] leading-tight">бот</p>
+                          </div>
+                        </div>
+                        <MoreVertical className="w-4 h-4 text-neutral-400" />
+                      </div>
+                      <div className="flex-1 p-3 flex flex-col justify-end gap-2 overflow-hidden">
+                        <div className="bg-[#2b5278] text-white rounded-2xl rounded-tr-none p-3 text-[11px] max-w-[80%] self-end relative shadow-sm">
+                          Привет! Помоги расшифровать общий анализ крови. Гемоглобин 110, это нормально?
+                          <span className="text-[9px] text-[#7da3c5] absolute bottom-1 right-2 flex items-center gap-0.5">
+                            14:20
+                            <svg className="w-3 h-3" viewBox="0 0 16 11" fill="none">
+                              <path d="M11.071 10.142l4.605-4.605-1.41-1.41-3.195 3.195-3.195-3.195-1.41 1.41 4.605 4.605z" fill="#7da3c5"/>
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="bg-[#202b36] text-white border border-white/5 rounded-2xl rounded-tl-none p-3 text-[11px] max-w-[85%] self-start relative shadow-sm">
+                          Гемоглобин 110 г/л ниже нормы для взрослых. Это может указывать на легкую анемию. Рекомендую проконсультироваться с терапевтом для подбора витаминов или железа.
+                          <span className="text-[9px] text-neutral-500 absolute bottom-1 right-2">14:21</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <span className="inline-block bg-white/10 backdrop-blur-md text-white rounded-full px-3 py-1 text-xs">
+                      {p.subtitle}
+                    </span>
+                    <h3 className="text-xl md:text-2xl font-bold text-white mt-3 mb-2">
+                      {p.title}
+                    </h3>
+                    <p className="text-sm text-neutral-300">
+                      {p.result}
+                    </p>
+                  </div>
+                </div>
+              ) : p.id === 1 ? (
+                <div className="block group">
+                  <div className="overflow-hidden rounded-2xl mb-4 w-full h-[240px] md:h-[280px] bg-[#12131a] relative">
+                    <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="relative w-48 h-36">
+                        <div className="absolute top-2 left-0 right-0 h-1.5 bg-white/5 rounded-full" />
+                        <div className="absolute top-7 left-0 right-0 h-1.5 bg-white/5 rounded-full" />
+                        <div className="absolute top-7 left-0 w-3/5 h-1.5 bg-gradient-to-r from-purple-500/40 to-transparent rounded-full" />
+                        <div className="absolute top-12 left-0 right-0 h-0.5 bg-white/[0.03] rounded-full" />
+                        <div className="absolute top-16 left-0 right-2/3 h-1 bg-white/5 rounded-full" />
+                        <div className="absolute top-20 left-0 right-1/4 h-1 bg-white/5 rounded-full" />
+                        <div className="absolute top-24 left-0 right-1/2 h-1 bg-gradient-to-r from-blue-500/30 to-transparent rounded-full" />
+                        <div className="absolute top-28 left-1/3 right-0 h-1 bg-white/5 rounded-full" />
+                        <div className="absolute top-[56px] left-[60%] w-14 h-14 rounded-full bg-purple-600/20 blur-xl" />
+                        <div className="absolute top-[52px] left-[58%] w-12 h-12 rounded-full bg-blue-500/20 blur-xl" />
+                        <div className="absolute top-14 left-[62%] w-8 h-8 rounded-full border border-white/[0.06] backdrop-blur-sm flex items-center justify-center">
+                          <div className="w-3 h-3 rounded-full bg-gradient-to-br from-purple-400 to-blue-400 blur-[1px]" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <span className="inline-block bg-white/10 backdrop-blur-md text-white rounded-full px-3 py-1 text-xs">
+                      {p.subtitle}
+                    </span>
+                    <h3 className="text-xl md:text-2xl font-bold text-white mt-3 mb-2">
+                      {p.title}
+                    </h3>
+                    <p className="text-sm text-neutral-300">
+                      {p.result}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <a href={p.link ?? "#contact"} className="block group">
+                  <div className="overflow-hidden rounded-2xl mb-4">
+                    <img
+                      src={p.image}
+                      alt={p.title}
+                      loading="lazy"
+                      className="w-full h-[240px] md:h-[280px] object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                    />
+                  </div>
+                  <div>
+                    <span className="inline-block bg-white/10 backdrop-blur-md text-white rounded-full px-3 py-1 text-xs">
+                      {p.subtitle}
+                    </span>
+                    <h3 className="text-xl md:text-2xl font-bold text-white mt-3 mb-2">
+                      {p.title}
+                    </h3>
+                    <p className="text-sm text-neutral-300">
+                      {p.result}
+                    </p>
+                  </div>
+                </a>
+              )}
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
-function ProjectRow({
-  project,
-  index,
-}: {
-  project: (typeof PROJECTS_DATA)[number];
-  index: number;
-}) {
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 60 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-      className="mx-auto max-w-[1400px] w-full px-4 sm:px-6"
-    >
-      <a
-        href={project.link ?? "#contact"}
-        className="block group"
-      >
-        <div className="relative overflow-hidden rounded-xl sm:rounded-3xl">
-          <img
-            src={project.image}
-            alt={project.title}
-            loading="lazy"
-            className="w-full aspect-[16/10] sm:aspect-[16/9] object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.02]"
-          />
-        </div>
-
-        <div className="mt-4 sm:mt-5 max-w-[1000px] mx-auto text-center px-2">
-          <p className="text-apple-gray text-[13px] sm:text-[15px] uppercase tracking-[0.18em]">
-            {String(index + 1).padStart(2, "0")} · {project.subtitle}
-          </p>
-          <h3 className="h-display mt-4 text-[32px] sm:text-[56px] lg:text-[72px]">
-            {project.title}
-          </h3>
-          <p className="mt-4 text-[18px] sm:text-[22px] text-apple-gray tracking-tight">
-            {project.result}
-          </p>
-        </div>
-      </a>
-    </motion.article>
-  );
-}
-
 /* ------------------------------ PHILOSOPHY ------------------------------ */
 function Philosophy() {
-  const items = [
-    {
-      title: "Прямая связь.",
-      desc: "Без менеджеров, координаторов и цепочек согласований. Пишете лично мне — получаете ответ и правки в тот же день.",
-    },
-    {
-      title: "Экономия бюджета.",
-      desc: "Вы платите за реальную работу, а не за офис студии, лишний штат и наценки посредников.",
-    },
-    {
-      title: "Высокая скорость.",
-      desc: "Все решения принимаю сам. Проект от идеи до релиза проходит в 2–3 раза быстрее, чем у агентств.",
-    },
-    {
-      title: "Единая ответственность.",
-      desc: "Дизайн, фронтенд, бэкенд и запуск — на одном человеке. Никто ничего никому не перекидывает.",
-    },
-  ];
-
   return (
-    <section id="philosophy" className="relative pt-16 sm:pt-28 pb-12 sm:pb-20">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
-        <p className="text-apple-gray text-[15px] sm:text-[17px] uppercase tracking-[0.2em]">
-          Подход
-        </p>
-        <h2 className="h-display mt-4 text-[40px] sm:text-[72px] lg:text-[88px]">
-          Один эксперт вместо
-          <br />
-          целой студии.
+    <section id="philosophy" className="bg-black py-24">
+      <div className="max-w-6xl mx-auto px-6">
+        <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-16 text-center">
+          Один эксперт вместо целой студии.
         </h2>
-      </div>
 
-      <div className="mt-10 sm:mt-16 max-w-[1000px] mx-auto px-4 sm:px-6 flex flex-col gap-10 sm:gap-16">
-        {items.map((it, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Card 1: Прямая связь — col-span-2 */}
           <motion.div
-            key={it.title}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="text-center"
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="md:col-span-2 bg-[#161617] rounded-3xl border border-white/[0.05] p-8 flex flex-col md:flex-row items-center gap-8"
           >
-            <p className="text-apple-gray text-mono text-[13px] tracking-widest">
-              — 0{i + 1}
-            </p>
-            <h3 className="h-display mt-4 text-[36px] sm:text-[64px] lg:text-[80px]">
-              {it.title}
-            </h3>
-            <p className="mt-5 mx-auto max-w-[680px] text-[18px] sm:text-[22px] text-apple-gray tracking-tight leading-snug">
-              {it.desc}
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-white mb-2">Прямая связь</h3>
+              <p className="text-[#86868b] text-sm leading-relaxed">
+                Коммуникация напрямую без менеджеров и испорченного телефона.
+              </p>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center text-[10px] font-bold text-white">
+                Э
+              </div>
+              <div className="w-16 h-px bg-gradient-to-r from-purple-500/60 to-transparent" />
+              <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-[10px] font-bold text-white">
+                К
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Card 2: Экономия бюджета */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="bg-[#161617] rounded-3xl border border-white/[0.05] p-8 flex flex-col items-center justify-center text-center"
+          >
+            <span className="text-6xl md:text-7xl font-extrabold text-white tracking-tighter mb-4">
+              −40%
+            </span>
+            <p className="text-sm text-neutral-400">
+              Экономия бюджета. Никаких переплат за аренду офиса, налоги и раздутый штат студии.
             </p>
           </motion.div>
-        ))}
+
+          {/* Card 3: Высокая скорость */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="bg-[#161617] rounded-3xl border border-white/[0.05] p-8 flex flex-col"
+          >
+            <svg className="w-full h-20 mb-4" viewBox="0 0 200 60" fill="none">
+              <polyline
+                points="0,50 30,45 60,35 90,40 120,25 150,15 200,8"
+                stroke="url(#speedGrad)"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+              />
+              <defs>
+                <linearGradient id="speedGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#6366f1" stopOpacity="0.3" />
+                  <stop offset="100%" stopColor="#6366f1" stopOpacity="1" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <p className="text-sm text-neutral-400">
+              Высокая скорость. Быстрый запуск благодаря отсутствию цепочки согласований.
+            </p>
+          </motion.div>
+
+          {/* Card 4: Единая ответственность — col-span-2 */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="md:col-span-2 bg-[#161617] rounded-3xl border border-white/[0.05] p-8"
+          >
+            <div className="flex flex-col md:flex-row gap-8 mb-6">
+              <div className="flex-1">
+                <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-4">Студия</p>
+                <div className="flex flex-col gap-3">
+                  {["Дизайнер задерживает макеты", "Кодер ждёт ТЗ", "Менеджер переводит стрелки"].map((item) => (
+                    <div key={item} className="flex items-center gap-2 text-sm text-neutral-500">
+                      <svg className="w-4 h-4 text-red-400/60 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                      </svg>
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="w-px bg-white/[0.06] hidden md:block" />
+              <div className="flex-1">
+                <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-4">Эксперт</p>
+                <div className="flex items-center gap-2 text-sm text-white">
+                  <svg className="w-4 h-4 text-green-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  Один человек отвечает за всё
+                </div>
+              </div>
+            </div>
+            <p className="text-[#86868b] text-sm">
+              Единая ответственность. Один человек отвечает за результат от идеи до релиза.
+            </p>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -462,71 +582,62 @@ function Philosophy() {
 
 /* ------------------------------- CONTACT -------------------------------- */
 function Contact() {
-  const links = [
-    { label: "Написать в Telegram", href: TELEGRAM_URL, external: true },
-    { label: "Открыть мессенджер МАКС", href: MAX_PROFILE_URL, external: true },
-    { label: `Отправить Email (${EMAIL})`, href: EMAIL_URL, external: false },
+  const buttons = [
+    {
+      label: "Написать в Telegram",
+      href: TELEGRAM_URL,
+      external: true,
+      icon: Send,
+    },
+    {
+      label: "Открыть резюме на МАКС",
+      href: MAX_PROFILE_URL,
+      external: true,
+      icon: FileText,
+    },
+    {
+      label: `Отправить Email (${EMAIL})`,
+      href: EMAIL_URL,
+      external: false,
+      icon: Mail,
+    },
   ];
 
   return (
-    <section
-      id="contact"
-      className="relative pt-16 sm:pt-28 pb-12 sm:pb-20"
-    >
-      <div className="max-w-[900px] mx-auto px-4 sm:px-6 text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="text-2xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white"
-        >
-          Связаться со мной
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-4 mx-auto max-w-[560px] text-[15px] sm:text-[19px] leading-snug tracking-tight text-apple-gray"
-        >
-          Обсудите вашу задачу напрямую с разработчиком — без посредников и долгих согласований.
-        </motion.p>
+    <section id="contact" className="bg-black py-28 max-w-4xl mx-auto px-6 text-center">
+      <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
+        Связаться со мной.
+      </h2>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-10 text-[15px] sm:text-[17px]"
-        >
-          {links.map((l) => (
+      <p className="text-[#86868b] text-lg max-w-xl mx-auto mb-12">
+        Обсудите ваш проект напрямую с разработчиком — без посредников и долгих согласований.
+      </p>
+
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        {buttons.map((b) => {
+          const Icon = b.icon;
+          return (
             <a
-              key={l.label}
-              href={l.href}
-              target={l.external ? "_blank" : undefined}
-              rel={l.external ? "noreferrer" : undefined}
-              className="apple-link inline-flex items-center gap-1.5 text-white"
+              key={b.label}
+              href={b.href}
+              target={b.external ? "_blank" : undefined}
+              rel={b.external ? "noreferrer" : undefined}
+              className="inline-flex items-center gap-2 bg-white/[0.04] backdrop-blur-md border border-white/[0.08] rounded-full px-6 py-3.5 text-sm font-medium text-white transition-all duration-300 hover:bg-white/[0.08] hover:border-white/20 group"
             >
-              {l.label}
-              <ArrowRight className="w-4 h-4" strokeWidth={2} />
+              <Icon className="w-4 h-4" />
+              <span>{b.label}</span>
+              <ChevronRight className="w-4 h-4 text-neutral-500 transition-transform duration-300 group-hover:translate-x-0.5" />
             </a>
-          ))}
-        </motion.div>
+          );
+        })}
+      </div>
+
+      <div className="border-t border-white/[0.05] mt-20 pt-8">
+        <p className="text-[11px] text-neutral-500">
+          © 2026 Вадим Георгиевич Лисицин | vgfox.ru. Все права защищены.
+        </p>
       </div>
     </section>
-  );
-}
-
-
-/* -------------------------------- FOOTER -------------------------------- */
-function Footer() {
-  return (
-    <footer className="border-t border-white/[0.06] py-8 sm:py-10">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center text-apple-gray text-[12px] leading-relaxed">
-        © 2026 Вадим Георгиевич Лисицин | vgfox.ru. Все права защищены.
-      </div>
-    </footer>
   );
 }
 
