@@ -22,24 +22,24 @@ var public_assets_data_default = {
 		"size": 20373,
 		"path": "../../docs/favicon.ico"
 	},
-	"/assets/routes-CKEIG6P6.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"24473-x3oSyLNpKjtQlEXTdSn3hYRhpsg\"",
-		"mtime": "2026-07-02T17:39:40.352Z",
-		"size": 148595,
-		"path": "../../docs/assets/routes-CKEIG6P6.js"
-	},
 	"/assets/styles-BHwndxJV.css": {
 		"type": "text/css; charset=utf-8",
 		"etag": "\"15314-OIMqG48kwk8YpNfIGMJCSHXH5fo\"",
-		"mtime": "2026-07-02T17:39:40.352Z",
+		"mtime": "2026-07-02T17:43:34.937Z",
 		"size": 86804,
 		"path": "../../docs/assets/styles-BHwndxJV.css"
+	},
+	"/assets/routes-CKEIG6P6.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"24473-x3oSyLNpKjtQlEXTdSn3hYRhpsg\"",
+		"mtime": "2026-07-02T17:43:34.936Z",
+		"size": 148595,
+		"path": "../../docs/assets/routes-CKEIG6P6.js"
 	},
 	"/assets/index-CxgA_MbZ.js": {
 		"type": "text/javascript; charset=utf-8",
 		"etag": "\"5443f-/JPy8Yg7KAi5ZkRffjNwLZS58OY\"",
-		"mtime": "2026-07-02T17:39:40.351Z",
+		"mtime": "2026-07-02T17:43:34.936Z",
 		"size": 345151,
 		"path": "../../docs/assets/index-CxgA_MbZ.js"
 	}
