@@ -1,19 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Send,
-  Mail,
-  Menu,
-  X,
-  Bot,
-  Smartphone,
-  Palette,
-  ShoppingBag,
-  ArrowRight,
-  ArrowUpRight,
-  MessageSquare,
-} from "lucide-react";
+import { Menu, X, ArrowRight, ArrowDown } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: LandingPage,
@@ -22,7 +10,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:image",
         content:
-          "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80",
+          "https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=1200&q=85",
       },
     ],
   }),
@@ -32,101 +20,74 @@ export const Route = createFileRoute("/")({
 //  CONTACTS
 // ============================================================================
 const TELEGRAM_URL = "https://t.me/vgfox";
-const MAX_PROFILE_URL = "https://max.ru/+79066001705"; // ← замените на точную ссылку
+const MAX_PROFILE_URL = "https://max.ru/+79066001705"; // ← точная ссылка на профиль MAX
 const EMAIL = "info@vgfox.ru";
 const EMAIL_URL = `mailto:${EMAIL}`;
 
 // ============================================================================
-//  PROJECTS_DATA
+//  PROJECTS_DATA — редактируется здесь, рендерится через .map()
 // ============================================================================
-type Category = "all" | "web" | "bots" | "apps" | "design";
-
 const PROJECTS_DATA: {
   id: number;
   title: string;
-  category: Exclude<Category, "all">;
-  categoryLabel: string;
-  task: string;
+  subtitle: string;
   result: string;
   image: string;
   link?: string;
 }[] = [
   {
     id: 1,
-    title: "LUXE",
-    category: "web",
-    categoryLabel: "E-commerce",
-    task: "Интернет-магазин премиум-бренда одежды с каталогом, фильтрами и быстрой корзиной.",
+    title: "LUXE — интернет-магазин одежды",
+    subtitle: "E-commerce · Next-gen retail",
     result: "Конверсия в заказ +32%",
     image:
-      "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1600&q=80",
+      "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=2200&q=85",
   },
   {
     id: 2,
-    title: "FinTap",
-    category: "apps",
-    categoryLabel: "Android · Финтех",
-    task: "Мобильное приложение банка: переводы, аналитика расходов, биометрия.",
-    result: "Оценка 4.8★ в Google Play",
+    title: "FinTap — Android-приложение банка",
+    subtitle: "Финтех · Мобильная разработка",
+    result: "Средняя оценка 4.8★ в Google Play",
     image:
-      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1600&q=80",
+      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=2200&q=85",
   },
   {
     id: 3,
-    title: "MedBot",
-    category: "bots",
-    categoryLabel: "Telegram-бот",
-    task: "AI-ассистент клиники: запись, напоминания, ответы пациентам 24/7.",
-    result: "40 часов работы администратора / неделю",
+    title: "MedBot — AI-ассистент клиники",
+    subtitle: "Telegram-бот · Автоматизация",
+    result: "Экономия 40 часов работы администратора / неделю",
     image:
-      "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=1600&q=80",
+      "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=2200&q=85",
   },
   {
     id: 4,
-    title: "NORDEN",
-    category: "design",
-    categoryLabel: "Брендинг",
-    task: "Ребрендинг: логотип, брендбук, ключевые визуалы, UI-кит.",
-    result: "Премиум-позиционирование бренда",
+    title: "NORDEN — редизайн фирменного стиля",
+    subtitle: "Брендинг · Айдентика",
+    result: "Премиум-позиционирование и рост узнаваемости",
     image:
-      "https://images.unsplash.com/photo-1561070791-2526d30994b8?w=1600&q=80",
+      "https://images.unsplash.com/photo-1561070791-2526d30994b8?w=2200&q=85",
   },
-];
-
-const FILTERS: { id: Category; label: string }[] = [
-  { id: "all", label: "Все" },
-  { id: "web", label: "Сайты" },
-  { id: "bots", label: "Боты" },
-  { id: "apps", label: "Приложения" },
-  { id: "design", label: "Дизайн" },
 ];
 
 // ============================================================================
 
 function LandingPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Header />
+    <div className="min-h-screen bg-black text-white">
+      <Nav />
       <Hero />
       <Services />
       <Portfolio />
-      <WhySolo />
+      <Philosophy />
       <Contact />
       <Footer />
     </div>
   );
 }
 
-/* ------------------------------- HEADER --------------------------------- */
-function Header() {
+/* -------------------------------- NAV ----------------------------------- */
+function Nav() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -135,73 +96,57 @@ function Header() {
     };
   }, [open]);
 
-  const nav = [
+  const links = [
     { href: "#services", label: "Услуги" },
-    { href: "#portfolio", label: "Работы" },
-    { href: "#why", label: "Подход" },
+    { href: "#portfolio", label: "Портфолио" },
+    { href: "#philosophy", label: "Подход" },
     { href: "#contact", label: "Контакты" },
   ];
 
-  const scrollTo = (href: string) => {
+  const go = (href: string) => {
     setOpen(false);
     setTimeout(() => {
-      document.querySelector(href)?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 50);
+      document
+        .querySelector(href)
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 60);
   };
 
   return (
     <>
-      <header
-        className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "backdrop-blur-xl bg-background/70 border-b border-border"
-            : "bg-transparent"
-        }`}
-      >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
-          <a href="#top" className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-md hairline grid place-items-center text-mono text-sm font-semibold">
-              V
-            </div>
-            <span className="font-mono font-medium tracking-tight text-sm">
-              VGFOX<span className="text-muted-foreground">.dev</span>
-            </span>
+      <header className="fixed top-0 inset-x-0 z-50 bg-black/70 backdrop-blur-xl border-b border-white/[0.06]">
+        <div className="max-w-[1200px] mx-auto h-11 sm:h-12 px-4 sm:px-6 flex items-center justify-between text-[13px]">
+          <a
+            href="#top"
+            className="apple-link tracking-widest uppercase text-[12px] font-normal"
+          >
+            vgfox.ru
           </a>
 
           <nav className="hidden md:flex items-center gap-8">
-            {nav.map((n) => (
+            {links.map((l) => (
               <button
-                key={n.href}
-                onClick={() => scrollTo(n.href)}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                key={l.href}
+                onClick={() => go(l.href)}
+                className="apple-link text-[12px] text-white/80"
               >
-                {n.label}
+                {l.label}
               </button>
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
-            <a
-              href={TELEGRAM_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="hidden md:inline-flex items-center gap-2 px-4 h-9 rounded-md bg-foreground text-primary-foreground text-sm font-medium hover:opacity-90 transition"
-            >
-              Связаться
-            </a>
+          <div className="hidden md:block w-16" />
 
-            <button
-              className="md:hidden w-9 h-9 grid place-items-center rounded-md hairline"
-              onClick={() => setOpen((v) => !v)}
-              aria-label="Меню"
-            >
-              {open ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
-            </button>
-          </div>
+          <button
+            className="md:hidden apple-link -mr-2 p-2"
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Меню"
+          >
+            {open ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+          </button>
         </div>
       </header>
 
-      {/* Mobile menu overlay */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -209,29 +154,21 @@ function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 md:hidden bg-background/95 backdrop-blur-xl pt-14"
+            className="fixed inset-0 z-40 md:hidden bg-black pt-11"
           >
-            <div className="px-6 py-8 flex flex-col gap-1">
-              {nav.map((n, i) => (
+            <div className="px-6 py-6 flex flex-col divide-y divide-white/[0.06]">
+              {links.map((l, i) => (
                 <motion.button
-                  key={n.href}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  onClick={() => scrollTo(n.href)}
-                  className="text-left text-2xl font-medium py-3 border-b border-border"
+                  key={l.href}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.05 + i * 0.04 }}
+                  onClick={() => go(l.href)}
+                  className="text-left py-5 text-[22px] font-medium tracking-tight"
                 >
-                  {n.label}
+                  {l.label}
                 </motion.button>
               ))}
-              <a
-                href={TELEGRAM_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-8 inline-flex items-center justify-center gap-2 px-4 h-12 rounded-md bg-foreground text-primary-foreground font-medium"
-              >
-                <Send className="w-4 h-4" /> Написать в Telegram
-              </a>
             </div>
           </motion.div>
         )}
@@ -243,93 +180,59 @@ function Header() {
 /* -------------------------------- HERO ---------------------------------- */
 function Hero() {
   return (
-    <section id="top" className="relative min-h-[100svh] flex items-end sm:items-center pt-24 pb-16 sm:pb-24 overflow-hidden">
-      {/* Background image */}
-      <div className="absolute inset-0 -z-10">
-        <img
-          src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=2400&q=85"
-          alt=""
-          className="w-full h-full object-cover"
-        />
-        {/* Dense gradient overlay for readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/75 to-background" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/40 to-transparent" />
-        <div className="absolute inset-0 backdrop-blur-[2px]" />
-      </div>
+    <section
+      id="top"
+      className="relative pt-24 sm:pt-32 pb-0 text-center overflow-hidden"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className="px-4 sm:px-6"
+      >
+        <h1 className="h-display text-[56px] sm:text-[96px] lg:text-[128px] text-white">
+          VGFOX DEV
+        </h1>
+        <p className="mt-4 sm:mt-6 mx-auto max-w-[720px] text-[20px] sm:text-[28px] lg:text-[32px] leading-tight font-medium tracking-tight text-apple-gray">
+          Цифровые продукты для бизнеса,
+          <br className="hidden sm:block" />
+          которые приносят прибыль.
+        </p>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-3xl"
-        >
-          <div className="inline-flex items-center gap-2 px-3 h-7 rounded-full hairline text-mono text-[11px] sm:text-xs text-muted-foreground mb-8">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-            Доступен для новых проектов
-          </div>
+        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-[17px] sm:text-[19px]">
+          <AppleLink href={TELEGRAM_URL} external>
+            Обсудить проект в Telegram
+          </AppleLink>
+          <button
+            onClick={() =>
+              document
+                .querySelector("#services")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+            className="apple-link inline-flex items-center gap-1.5 text-white"
+          >
+            Мои услуги <ArrowDown className="w-4 h-4" strokeWidth={2} />
+          </button>
+        </div>
+      </motion.div>
 
-          <h1 className="text-[2.25rem] leading-[1.05] sm:text-6xl lg:text-7xl font-semibold tracking-tight text-gradient-silver">
-            Цифровые продукты<br />
-            для бизнеса,<br />
-            которые приносят<br />
-            <span className="italic font-normal text-foreground">прибыль.</span>
-          </h1>
-
-          <p className="mt-6 sm:mt-8 text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed">
-            Меня зовут Вадим Лисицин. Я — Fullstack-разработчик и дизайнер.
-            Проектирую и запускаю сайты, мобильные приложения, Telegram-ботов и брендинг
-            от идеи до релиза. Один эксперт вместо целой студии.
-          </p>
-
-          <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3">
-            <motion.a
-              href={TELEGRAM_URL}
-              target="_blank"
-              rel="noreferrer"
-              whileTap={{ scale: 0.98 }}
-              className="group inline-flex items-center justify-center gap-2 px-6 h-12 rounded-md bg-foreground text-primary-foreground font-medium transition hover:bg-silver"
-            >
-              Обсудить проект в Telegram
-              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </motion.a>
-
-            <a
-              href="#services"
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector("#services")?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="inline-flex items-center justify-center gap-2 px-6 h-12 rounded-md hairline text-foreground font-medium hover:bg-white/[0.04] transition"
-            >
-              Мои услуги
-            </a>
-          </div>
-        </motion.div>
-
-        {/* Stat strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.7 }}
-          className="mt-16 sm:mt-24 grid grid-cols-3 gap-4 sm:gap-10 max-w-2xl border-t border-border pt-8"
-        >
-          {[
-            { v: "7+", l: "лет опыта" },
-            { v: "50+", l: "проектов" },
-            { v: "100%", l: "лично" },
-          ].map((s) => (
-            <div key={s.l}>
-              <div className="text-2xl sm:text-4xl font-semibold text-mono tracking-tight">
-                {s.v}
-              </div>
-              <div className="text-xs sm:text-sm text-muted-foreground mt-1">
-                {s.l}
-              </div>
-            </div>
-          ))}
-        </motion.div>
-      </div>
+      {/* Hero cinematic image */}
+      <motion.div
+        initial={{ opacity: 0, y: 80 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        className="relative mt-16 sm:mt-24 mx-auto max-w-[1400px] px-4 sm:px-6"
+      >
+        <div className="relative">
+          <img
+            src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=2400&q=90"
+            alt=""
+            className="w-full aspect-[16/10] sm:aspect-[16/8] object-cover rounded-xl sm:rounded-2xl mask-fade-edges"
+          />
+          {/* Soft fade into pure black */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 sm:h-64 bg-gradient-to-b from-transparent to-black" />
+        </div>
+      </motion.div>
     </section>
   );
 }
@@ -338,204 +241,222 @@ function Hero() {
 function Services() {
   const items = [
     {
-      icon: ShoppingBag,
-      title: "Сайты и магазины",
-      desc: "Быстрые лендинги и e-commerce, готовые к запуску контекстной и таргет-рекламы. Чистый код, SEO, аналитика.",
-      className: "md:col-span-2 md:row-span-2",
+      title: "Telegram-боты.",
+      desc: "Автоматизация сложных бизнес-процессов, умные воронки продаж и поддержка клиентов 24/7.",
+      image:
+        "https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?w=2000&q=85",
     },
     {
-      icon: Bot,
-      title: "Telegram-боты",
-      desc: "Автоматизация процессов, воронки продаж и поддержка 24/7.",
+      title: "Android-приложения.",
+      desc: "Проектирование интерфейсов, разработка логики и публикация в сторы под ключ.",
+      image:
+        "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=2000&q=85",
     },
     {
-      icon: Smartphone,
-      title: "Android-приложения",
-      desc: "Проектирование, разработка и публикация в сторы.",
+      title: "Сайты и e-commerce.",
+      desc: "Быстрые, технологичные интернет-магазины и лендинги, полностью готовые к запуску рекламы.",
+      image:
+        "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=2000&q=85",
     },
     {
-      icon: Palette,
-      title: "Дизайн любого уровня",
-      desc: "Графика, логотипы, брендбуки, UX/UI для компаний любого масштаба.",
-      className: "md:col-span-2",
+      title: "Дизайн чего угодно.",
+      desc: "Графика, фирменный стиль, логотипы и глубокий UX/UI для компаний любого масштаба.",
+      image:
+        "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=2000&q=85",
     },
   ];
 
   return (
-    <section id="services" className="relative py-24 sm:py-32">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <SectionHeader
-          label="Услуги"
-          title={<>Что я делаю —<br />и какую пользу это приносит бизнесу</>}
-        />
-
-        <div className="mt-12 sm:mt-16 grid grid-cols-1 md:grid-cols-3 md:auto-rows-[200px] gap-3 sm:gap-4">
-          {items.map((it, i) => (
-            <motion.div
-              key={it.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.06 }}
-              className={`group relative overflow-hidden rounded-xl p-6 sm:p-8 glass glass-hover flex flex-col justify-between min-h-[200px] ${it.className ?? ""}`}
-            >
-              <div className="w-10 h-10 rounded-lg hairline grid place-items-center text-silver">
-                <it.icon className="w-5 h-5" strokeWidth={1.5} />
-              </div>
-              <div>
-                <h3 className="text-lg sm:text-xl font-semibold tracking-tight">
-                  {it.title}
-                </h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                  {it.desc}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+    <section id="services" className="relative pt-32 sm:pt-48">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 mb-16 sm:mb-24 text-center">
+        <p className="text-apple-gray text-[15px] sm:text-[17px] uppercase tracking-[0.2em]">
+          Услуги
+        </p>
+        <h2 className="h-display mt-4 text-[40px] sm:text-[72px] lg:text-[88px]">
+          Один эксперт.
+          <br />
+          Четыре направления.
+        </h2>
       </div>
+
+      <div className="flex flex-col">
+        {items.map((it, i) => (
+          <ServiceBlock key={it.title} {...it} index={i} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ServiceBlock({
+  title,
+  desc,
+  image,
+}: {
+  title: string;
+  desc: string;
+  image: string;
+  index: number;
+}) {
+  return (
+    <section className="pt-24 sm:pt-40 pb-8 sm:pb-16">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center"
+      >
+        <h3 className="h-display text-[44px] sm:text-[80px] lg:text-[104px] text-white">
+          {title}
+        </h3>
+        <p className="mt-5 sm:mt-6 mx-auto max-w-[720px] text-[18px] sm:text-[24px] lg:text-[28px] leading-snug text-apple-gray tracking-tight">
+          {desc}
+        </p>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+        className="relative mt-14 sm:mt-20 mx-auto max-w-[1400px] px-4 sm:px-6"
+      >
+        <div className="relative">
+          <img
+            src={image}
+            alt=""
+            loading="lazy"
+            className="w-full aspect-[16/10] sm:aspect-[16/8] object-cover rounded-xl sm:rounded-2xl mask-fade-edges"
+          />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 sm:h-48 bg-gradient-to-b from-transparent to-black" />
+        </div>
+      </motion.div>
     </section>
   );
 }
 
 /* ------------------------------ PORTFOLIO ------------------------------- */
 function Portfolio() {
-  const [filter, setFilter] = useState<Category>("all");
-  const visible =
-    filter === "all"
-      ? PROJECTS_DATA
-      : PROJECTS_DATA.filter((p) => p.category === filter);
-
   return (
-    <section id="portfolio" className="relative py-24 sm:py-32 border-t border-border">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <SectionHeader
-          label="Работы"
-          title={<>Избранные концепты<br />и реальные кейсы</>}
-        />
+    <section id="portfolio" className="relative pt-32 sm:pt-56">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 mb-16 sm:mb-24 text-center">
+        <p className="text-apple-gray text-[15px] sm:text-[17px] uppercase tracking-[0.2em]">
+          Работы
+        </p>
+        <h2 className="h-display mt-4 text-[40px] sm:text-[72px] lg:text-[88px]">
+          Избранные концепты.
+        </h2>
+      </div>
 
-        {/* Filters */}
-        <div className="mt-10 flex flex-wrap gap-2">
-          {FILTERS.map((f) => {
-            const active = filter === f.id;
-            return (
-              <button
-                key={f.id}
-                onClick={() => setFilter(f.id)}
-                className={`px-4 h-9 rounded-full text-sm font-medium transition-all ${
-                  active
-                    ? "bg-foreground text-primary-foreground"
-                    : "hairline text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {f.label}
-              </button>
-            );
-          })}
-        </div>
-
-        <motion.div
-          layout
-          className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6"
-        >
-          <AnimatePresence mode="popLayout">
-            {visible.map((p) => (
-              <motion.a
-                key={p.id}
-                href={p.link ?? "#contact"}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="group block rounded-xl overflow-hidden glass glass-hover"
-              >
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <img
-                    src={p.image}
-                    alt={p.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-                </div>
-                <div className="p-6 sm:p-7">
-                  <div className="text-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-                    {p.categoryLabel}
-                  </div>
-                  <h3 className="mt-3 text-2xl sm:text-3xl font-semibold tracking-tight flex items-center gap-2">
-                    {p.title}
-                    <ArrowUpRight className="w-5 h-5 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" strokeWidth={1.5} />
-                  </h3>
-                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                    {p.task}
-                  </p>
-                  <div className="mt-5 pt-5 border-t border-border text-sm text-silver">
-                    {p.result}
-                  </div>
-                </div>
-              </motion.a>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+      <div className="flex flex-col gap-24 sm:gap-40">
+        {PROJECTS_DATA.map((p, i) => (
+          <ProjectRow key={p.id} project={p} index={i} />
+        ))}
       </div>
     </section>
   );
 }
 
-/* ------------------------------- WHY SOLO ------------------------------- */
-function WhySolo() {
+function ProjectRow({
+  project,
+  index,
+}: {
+  project: (typeof PROJECTS_DATA)[number];
+  index: number;
+}) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+      className="mx-auto max-w-[1400px] w-full px-4 sm:px-6"
+    >
+      <a
+        href={project.link ?? "#contact"}
+        className="block group"
+      >
+        <div className="relative overflow-hidden rounded-xl sm:rounded-3xl">
+          <img
+            src={project.image}
+            alt={project.title}
+            loading="lazy"
+            className="w-full aspect-[16/10] sm:aspect-[16/9] object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.02]"
+          />
+        </div>
+
+        <div className="mt-8 sm:mt-10 max-w-[1000px] mx-auto text-center px-2">
+          <p className="text-apple-gray text-[13px] sm:text-[15px] uppercase tracking-[0.18em]">
+            {String(index + 1).padStart(2, "0")} · {project.subtitle}
+          </p>
+          <h3 className="h-display mt-4 text-[32px] sm:text-[56px] lg:text-[72px]">
+            {project.title}
+          </h3>
+          <p className="mt-4 text-[18px] sm:text-[22px] text-apple-gray tracking-tight">
+            {project.result}
+          </p>
+        </div>
+      </a>
+    </motion.article>
+  );
+}
+
+/* ------------------------------ PHILOSOPHY ------------------------------ */
+function Philosophy() {
   const items = [
     {
-      n: "01",
-      title: "Прямая связь",
-      desc: "Общаемся напрямую, без менеджеров и цепочек согласований.",
+      title: "Прямая связь.",
+      desc: "Без менеджеров, координаторов и цепочек согласований. Пишете лично мне — получаете ответ и правки в тот же день.",
     },
     {
-      n: "02",
-      title: "Экономия бюджета",
-      desc: "Вы платите за работу, а не за офис студии и наценки посредников.",
+      title: "Экономия бюджета.",
+      desc: "Вы платите за реальную работу, а не за офис студии, лишний штат и наценки посредников.",
     },
     {
-      n: "03",
-      title: "Высокая скорость",
-      desc: "Решения принимаю сам — до релиза проходит в 2–3 раза меньше времени.",
+      title: "Высокая скорость.",
+      desc: "Все решения принимаю сам. Проект от идеи до релиза проходит в 2–3 раза быстрее, чем у агентств.",
     },
     {
-      n: "04",
-      title: "Единая ответственность",
-      desc: "Дизайн, фронт, бэк и запуск — на одном человеке. Ничего не теряется.",
+      title: "Единая ответственность.",
+      desc: "Дизайн, фронтенд, бэкенд и запуск — на одном человеке. Никто ничего никому не перекидывает.",
     },
   ];
 
   return (
-    <section id="why" className="relative py-24 sm:py-32 border-t border-border">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <SectionHeader
-          label="Подход"
-          title={<>Почему один разработчик<br />лучше целой студии</>}
-        />
+    <section id="philosophy" className="relative pt-32 sm:pt-56 pb-24 sm:pb-40">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
+        <p className="text-apple-gray text-[15px] sm:text-[17px] uppercase tracking-[0.2em]">
+          Подход
+        </p>
+        <h2 className="h-display mt-4 text-[40px] sm:text-[72px] lg:text-[88px]">
+          Один эксперт вместо
+          <br />
+          целой студии.
+        </h2>
+      </div>
 
-        <div className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-          {items.map((it, i) => (
-            <motion.div
-              key={it.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.06 }}
-              className="p-6 sm:p-7 rounded-xl glass glass-hover"
-            >
-              <div className="text-mono text-xs text-muted-foreground">
-                {it.n}
-              </div>
-              <h3 className="mt-6 text-lg font-semibold">{it.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                {it.desc}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+      <div className="mt-20 sm:mt-32 max-w-[1000px] mx-auto px-4 sm:px-6 flex flex-col gap-20 sm:gap-32">
+        {items.map((it, i) => (
+          <motion.div
+            key={it.title}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="text-center"
+          >
+            <p className="text-apple-gray text-mono text-[13px] tracking-widest">
+              — 0{i + 1}
+            </p>
+            <h3 className="h-display mt-4 text-[36px] sm:text-[64px] lg:text-[80px]">
+              {it.title}
+            </h3>
+            <p className="mt-5 mx-auto max-w-[680px] text-[18px] sm:text-[22px] text-apple-gray tracking-tight leading-snug">
+              {it.desc}
+            </p>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
@@ -543,73 +464,62 @@ function WhySolo() {
 
 /* ------------------------------- CONTACT -------------------------------- */
 function Contact() {
-  const buttons = [
+  const rows = [
+    { label: "Telegram", value: "@vgfox", href: TELEGRAM_URL, external: true },
     {
-      href: TELEGRAM_URL,
-      title: "Telegram",
-      sub: "@vgfox",
-      icon: Send,
-      external: true,
-    },
-    {
+      label: "Мессенджер МАКС",
+      value: "написать в MAX",
       href: MAX_PROFILE_URL,
-      title: "МАКС",
-      sub: "Российский мессенджер",
-      icon: MessageSquare,
       external: true,
     },
-    {
-      href: EMAIL_URL,
-      title: "Email",
-      sub: EMAIL,
-      icon: Mail,
-      external: false,
-    },
+    { label: "Email", value: EMAIL, href: EMAIL_URL, external: false },
   ];
 
   return (
-    <section id="contact" className="relative py-24 sm:py-32 border-t border-border">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <SectionHeader
-          label="Контакты"
-          title={<>Начать проект —<br />в один шаг</>}
-        />
-        <p className="mt-6 text-base text-muted-foreground max-w-xl">
-          Опишите задачу удобным способом. Отвечу лично, оценю сроки и бюджет —
-          без ботов, звонков и колл-центров.
+    <section
+      id="contact"
+      className="relative pt-32 sm:pt-56 pb-24 sm:pb-40"
+    >
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
+        <p className="text-apple-gray text-[15px] sm:text-[17px] uppercase tracking-[0.2em]">
+          Контакты
         </p>
+        <h2 className="h-display mt-4 text-[40px] sm:text-[72px] lg:text-[88px]">
+          Начать проект
+          <br />
+          на <span className="text-apple-gray">vgfox.ru</span>
+        </h2>
+        <p className="mt-6 mx-auto max-w-[560px] text-[18px] sm:text-[22px] text-apple-gray tracking-tight">
+          Опишите задачу удобным способом. Отвечу лично, оценю сроки и бюджет.
+        </p>
+      </div>
 
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
-          {buttons.map((b, i) => (
-            <motion.a
-              key={b.title}
-              href={b.href}
-              target={b.external ? "_blank" : undefined}
-              rel={b.external ? "noreferrer" : undefined}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="group relative overflow-hidden rounded-xl p-6 sm:p-8 glass glass-hover flex flex-col justify-between min-h-[180px]"
-            >
-              <b.icon className="w-6 h-6 text-silver" strokeWidth={1.5} />
-              <div>
-                <div className="text-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-                  {b.sub}
-                </div>
-                <div className="mt-2 flex items-center justify-between">
-                  <span className="text-2xl font-semibold tracking-tight">
-                    {b.title}
+      <div className="mt-16 sm:mt-24 max-w-[900px] mx-auto px-4 sm:px-6">
+        <ul className="divide-y divide-white/[0.08] border-y border-white/[0.08]">
+          {rows.map((r) => (
+            <li key={r.label}>
+              <a
+                href={r.href}
+                target={r.external ? "_blank" : undefined}
+                rel={r.external ? "noreferrer" : undefined}
+                className="group flex items-center justify-between py-7 sm:py-10"
+              >
+                <div className="flex flex-col text-left">
+                  <span className="text-apple-gray text-[13px] sm:text-[15px] uppercase tracking-[0.18em]">
+                    {r.label}
                   </span>
-                  <ArrowUpRight
-                    className="w-5 h-5 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground"
-                    strokeWidth={1.5}
-                  />
+                  <span className="mt-2 h-display text-[26px] sm:text-[44px] lg:text-[52px] text-white transition-opacity group-hover:opacity-70">
+                    {r.value}
+                  </span>
                 </div>
-              </div>
-            </motion.a>
+                <ArrowRight
+                  className="w-6 h-6 sm:w-8 sm:h-8 text-white transition-transform group-hover:translate-x-1"
+                  strokeWidth={1.5}
+                />
+              </a>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );
@@ -618,46 +528,33 @@ function Contact() {
 /* -------------------------------- FOOTER -------------------------------- */
 function Footer() {
   return (
-    <footer className="border-t border-border py-10">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-md hairline grid place-items-center text-mono text-sm font-semibold">
-            V
-          </div>
-          <span className="font-mono font-medium text-sm">
-            VGFOX<span className="text-muted-foreground">.dev</span>
-          </span>
-        </div>
-        <p className="text-xs sm:text-sm text-muted-foreground">
-          © 2026 Вадим Георгиевич Лисицин · VGFOX DEV. Все права защищены.
-        </p>
-        <a
-          href="https://vgfox.ru"
-          className="text-xs text-mono text-muted-foreground hover:text-foreground transition inline-flex items-center gap-1"
-        >
-          vgfox.ru <ArrowRight className="w-3 h-3" />
-        </a>
+    <footer className="border-t border-white/[0.06] py-8 sm:py-10">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center text-apple-gray text-[12px] leading-relaxed">
+        © 2026 Вадим Георгиевич Лисицин | vgfox.ru. Все права защищены.
       </div>
     </footer>
   );
 }
 
 /* ------------------------------- HELPERS -------------------------------- */
-function SectionHeader({
-  label,
-  title,
+function AppleLink({
+  href,
+  children,
+  external,
 }: {
-  label: string;
-  title: React.ReactNode;
+  href: string;
+  children: React.ReactNode;
+  external?: boolean;
 }) {
   return (
-    <div>
-      <div className="text-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-        — {label}
-      </div>
-      <h2 className="mt-5 text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.05] text-gradient-silver">
-        {title}
-      </h2>
-    </div>
+    <a
+      href={href}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noreferrer" : undefined}
+      className="apple-link inline-flex items-center gap-1.5 text-white"
+    >
+      {children}
+      <ArrowRight className="w-4 h-4" strokeWidth={2} />
+    </a>
   );
 }
