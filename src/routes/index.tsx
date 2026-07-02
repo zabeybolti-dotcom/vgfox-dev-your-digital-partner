@@ -182,24 +182,35 @@ function Hero() {
   return (
     <section
       id="top"
-      className="relative pt-24 sm:pt-32 pb-0 text-center overflow-hidden"
+      className="relative min-h-[100svh] flex items-center justify-center text-center overflow-hidden"
     >
+      {/* Full-bleed background image */}
+      <div className="absolute inset-0 -z-10">
+        <img
+          src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=2400&q=90"
+          alt=""
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/70 backdrop-blur-[3px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black" />
+      </div>
+
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="px-4 sm:px-6"
+        className="px-4 sm:px-6 pt-16"
       >
-        <h1 className="h-display text-[56px] sm:text-[96px] lg:text-[128px] text-white">
+        <h1 className="h-display text-2xl sm:text-4xl lg:text-5xl text-white">
           VGFOX DEV
         </h1>
-        <p className="mt-4 sm:mt-6 mx-auto max-w-[720px] text-[20px] sm:text-[28px] lg:text-[32px] leading-tight font-medium tracking-tight text-apple-gray">
+        <p className="mt-3 sm:mt-4 mx-auto max-w-[640px] text-[17px] sm:text-[22px] lg:text-[26px] leading-tight font-medium tracking-tight text-white/90">
           Цифровые продукты для бизнеса,
           <br className="hidden sm:block" />
           которые приносят прибыль.
         </p>
 
-        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-[17px] sm:text-[19px]">
+        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 text-[15px] sm:text-[17px]">
           <AppleLink href={TELEGRAM_URL} external>
             Обсудить проект в Telegram
           </AppleLink>
@@ -215,27 +226,10 @@ function Hero() {
           </button>
         </div>
       </motion.div>
-
-      {/* Hero cinematic image */}
-      <motion.div
-        initial={{ opacity: 0, y: 80 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        className="relative mt-16 sm:mt-24 mx-auto max-w-[1400px] px-4 sm:px-6"
-      >
-        <div className="relative">
-          <img
-            src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=2400&q=90"
-            alt=""
-            className="w-full aspect-[16/10] sm:aspect-[16/8] object-cover rounded-xl sm:rounded-2xl mask-fade-edges"
-          />
-          {/* Soft fade into pure black */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 sm:h-64 bg-gradient-to-b from-transparent to-black" />
-        </div>
-      </motion.div>
     </section>
   );
 }
+
 
 /* ------------------------------ SERVICES -------------------------------- */
 function Services() {
@@ -464,15 +458,10 @@ function Philosophy() {
 
 /* ------------------------------- CONTACT -------------------------------- */
 function Contact() {
-  const rows = [
-    { label: "Telegram", value: "@vgfox", href: TELEGRAM_URL, external: true },
-    {
-      label: "Мессенджер МАКС",
-      value: "написать в MAX",
-      href: MAX_PROFILE_URL,
-      external: true,
-    },
-    { label: "Email", value: EMAIL, href: EMAIL_URL, external: false },
+  const links = [
+    { label: "Написать в Telegram", href: TELEGRAM_URL, external: true },
+    { label: "Открыть мессенджер МАКС", href: MAX_PROFILE_URL, external: true },
+    { label: `Отправить Email (${EMAIL})`, href: EMAIL_URL, external: false },
   ];
 
   return (
@@ -480,50 +469,51 @@ function Contact() {
       id="contact"
       className="relative pt-32 sm:pt-56 pb-24 sm:pb-40"
     >
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
-        <p className="text-apple-gray text-[15px] sm:text-[17px] uppercase tracking-[0.2em]">
-          Контакты
-        </p>
-        <h2 className="h-display mt-4 text-[40px] sm:text-[72px] lg:text-[88px]">
-          Начать проект
-          <br />
-          на <span className="text-apple-gray">vgfox.ru</span>
-        </h2>
-        <p className="mt-6 mx-auto max-w-[560px] text-[18px] sm:text-[22px] text-apple-gray tracking-tight">
-          Опишите задачу удобным способом. Отвечу лично, оценю сроки и бюджет.
-        </p>
-      </div>
+      <div className="max-w-[900px] mx-auto px-4 sm:px-6 text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="text-2xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white"
+        >
+          Связаться со мной
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-4 mx-auto max-w-[560px] text-[15px] sm:text-[19px] leading-snug tracking-tight text-apple-gray"
+        >
+          Обсудите вашу задачу напрямую с разработчиком — без посредников и долгих согласований.
+        </motion.p>
 
-      <div className="mt-16 sm:mt-24 max-w-[900px] mx-auto px-4 sm:px-6">
-        <ul className="divide-y divide-white/[0.08] border-y border-white/[0.08]">
-          {rows.map((r) => (
-            <li key={r.label}>
-              <a
-                href={r.href}
-                target={r.external ? "_blank" : undefined}
-                rel={r.external ? "noreferrer" : undefined}
-                className="group flex items-center justify-between py-7 sm:py-10"
-              >
-                <div className="flex flex-col text-left">
-                  <span className="text-apple-gray text-[13px] sm:text-[15px] uppercase tracking-[0.18em]">
-                    {r.label}
-                  </span>
-                  <span className="mt-2 h-display text-[26px] sm:text-[44px] lg:text-[52px] text-white transition-opacity group-hover:opacity-70">
-                    {r.value}
-                  </span>
-                </div>
-                <ArrowRight
-                  className="w-6 h-6 sm:w-8 sm:h-8 text-white transition-transform group-hover:translate-x-1"
-                  strokeWidth={1.5}
-                />
-              </a>
-            </li>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-10 text-[15px] sm:text-[17px]"
+        >
+          {links.map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              target={l.external ? "_blank" : undefined}
+              rel={l.external ? "noreferrer" : undefined}
+              className="apple-link inline-flex items-center gap-1.5 text-white"
+            >
+              {l.label}
+              <ArrowRight className="w-4 h-4" strokeWidth={2} />
+            </a>
           ))}
-        </ul>
+        </motion.div>
       </div>
     </section>
   );
 }
+
 
 /* -------------------------------- FOOTER -------------------------------- */
 function Footer() {
