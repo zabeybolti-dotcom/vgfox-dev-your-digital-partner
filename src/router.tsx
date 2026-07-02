@@ -1,15 +1,15 @@
 import { QueryClient } from "@tanstack/react-query";
-import { createRouter, createHashHistory } from "@tanstack/react-router";
+import { createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
-const hashHistory = createHashHistory();
+const isProd = process.env.NODE_ENV === 'production';
 
 export const getRouter = () => {
   const queryClient = new QueryClient();
 
   const router = createRouter({
     routeTree,
-    history: hashHistory,
+    basepath: isProd ? '/vgfox-dev-your-digital-partner/' : '/',
     context: { queryClient },
     scrollRestoration: true,
     defaultPreloadStaleTime: 0,
