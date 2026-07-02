@@ -10,7 +10,6 @@ const files = readdirSync(assetsDir);
 
 const js = files.filter((f) => f.endsWith(".js") && !f.includes("service-worker"));
 const css = files.filter((f) => f.endsWith(".css"));
-const base = "/vgfox-dev-your-digital-partner/";
 
 const html = `<!doctype html>
 <html lang="ru">
@@ -23,15 +22,15 @@ const html = `<!doctype html>
     <meta property="og:description" content="Сайты, приложения, Telegram-боты и дизайн под ключ. От идеи до запуска." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="${base}favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
-    ${css.map((f) => `<link rel="stylesheet" href="${base}assets/${f}" />`).join("\n    ")}
+    ${css.map((f) => `<link rel="stylesheet" href="assets/${f}" />`).join("\n    ")}
   </head>
   <body>
     <div id="root"></div>
-    ${js.map((f) => `<script type="module" src="${base}assets/${f}"></script>`).join("\n    ")}
+    ${js.map((f) => `<script type="module" src="assets/${f}"></script>`).join("\n    ")}
   </body>
 </html>`;
 

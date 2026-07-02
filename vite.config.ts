@@ -10,7 +10,7 @@ const isProd = process.env.NODE_ENV === 'production';
 
 export default defineConfig({
   vite: {
-    base: isProd ? '/vgfox-dev-your-digital-partner/' : '/',
+    base: './',
   },
   tanstackStart: {
     server: { entry: "server" },
