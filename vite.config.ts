@@ -15,9 +15,6 @@ export default defineConfig({
   tanstackStart: {
     static: true,
     server: { entry: "server" },
-    router: {
-      basepath: '/',
-    },
   },
   nitro: {
     output: {

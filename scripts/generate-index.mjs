@@ -17,6 +17,8 @@ const files = readdirSync(assetsDir);
 const js = files.filter((f) => f.endsWith(".js") && !f.includes("service-worker"));
 const css = files.filter((f) => f.endsWith(".css"));
 
+const ssh = `<script>(self.$R=self.$R||{})["tsr"]=[];self.$_TSR={h(){this.hydrated=!0,this.c()},e(){this.streamEnded=!0,this.c()},c(){this.hydrated&&this.streamEnded&&(delete self.$_TSR,delete self.$R.tsr)},p(e){this.initialized?e():this.buffer.push(e)},buffer:[],router:{manifest:null,matches:[],lastMatchId:void 0,dehydratedData:void 0}};$_TSR.e()\x3C/script>`;
+
 const html = `<!doctype html>
 <html lang="ru">
   <head>
@@ -36,6 +38,7 @@ const html = `<!doctype html>
   </head>
   <body>
     <div id="root"></div>
+    ${ssh}
     ${js.map((f) => `<script type="module" src="/vgfox-dev/assets/${f}"></script>`).join("\n    ")}
   </body>
 </html>`;

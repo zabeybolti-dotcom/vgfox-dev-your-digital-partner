@@ -7,7 +7,7 @@ export const getRouter = () => {
 
   const router = createRouter({
     routeTree,
-    basepath: '/',
+    basepath: "/",
     context: { queryClient },
     defaultPreloadStaleTime: 0,
   });
