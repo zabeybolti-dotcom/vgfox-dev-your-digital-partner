@@ -182,24 +182,35 @@ function Hero() {
   return (
     <section
       id="top"
-      className="relative pt-24 sm:pt-32 pb-0 text-center overflow-hidden"
+      className="relative min-h-[100svh] flex items-center justify-center text-center overflow-hidden"
     >
+      {/* Full-bleed background image */}
+      <div className="absolute inset-0 -z-10">
+        <img
+          src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=2400&q=90"
+          alt=""
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/70 backdrop-blur-[3px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black" />
+      </div>
+
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="px-4 sm:px-6"
+        className="px-4 sm:px-6 pt-16"
       >
-        <h1 className="h-display text-[56px] sm:text-[96px] lg:text-[128px] text-white">
+        <h1 className="h-display text-2xl sm:text-4xl lg:text-5xl text-white">
           VGFOX DEV
         </h1>
-        <p className="mt-4 sm:mt-6 mx-auto max-w-[720px] text-[20px] sm:text-[28px] lg:text-[32px] leading-tight font-medium tracking-tight text-apple-gray">
+        <p className="mt-3 sm:mt-4 mx-auto max-w-[640px] text-[17px] sm:text-[22px] lg:text-[26px] leading-tight font-medium tracking-tight text-white/90">
           Цифровые продукты для бизнеса,
           <br className="hidden sm:block" />
           которые приносят прибыль.
         </p>
 
-        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-[17px] sm:text-[19px]">
+        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 text-[15px] sm:text-[17px]">
           <AppleLink href={TELEGRAM_URL} external>
             Обсудить проект в Telegram
           </AppleLink>
@@ -215,27 +226,10 @@ function Hero() {
           </button>
         </div>
       </motion.div>
-
-      {/* Hero cinematic image */}
-      <motion.div
-        initial={{ opacity: 0, y: 80 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        className="relative mt-16 sm:mt-24 mx-auto max-w-[1400px] px-4 sm:px-6"
-      >
-        <div className="relative">
-          <img
-            src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=2400&q=90"
-            alt=""
-            className="w-full aspect-[16/10] sm:aspect-[16/8] object-cover rounded-xl sm:rounded-2xl mask-fade-edges"
-          />
-          {/* Soft fade into pure black */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 sm:h-64 bg-gradient-to-b from-transparent to-black" />
-        </div>
-      </motion.div>
     </section>
   );
 }
+
 
 /* ------------------------------ SERVICES -------------------------------- */
 function Services() {
