@@ -13,6 +13,7 @@ export default defineConfig({
     base: isProd ? '/vgfox-dev-your-digital-partner/' : '/',
   },
   tanstackStart: {
+    static: true,
     server: { entry: "server" },
   },
 });
