@@ -310,6 +310,25 @@ function createBrowserHistory(opts) {
 	return history;
 }
 /**
+* Create a hash-based history implementation.
+* Useful for static hosts or environments without server URL rewriting.
+* @link https://tanstack.com/router/latest/docs/framework/react/guide/history-types
+*/
+function createHashHistory(opts) {
+	const win = opts?.window ?? (typeof document !== "undefined" ? window : void 0);
+	return createBrowserHistory({
+		window: win,
+		parseLocation: () => {
+			const hashSplit = win.location.hash.split("#").slice(1);
+			const pathPart = hashSplit[0] ?? "/";
+			const searchPart = win.location.search;
+			const hashEntries = hashSplit.slice(1);
+			return parseHref(`${pathPart}${searchPart}${hashEntries.length === 0 ? "" : `#${hashEntries.join("#")}`}`, win.history.state);
+		},
+		createHref: (href) => `${win.location.pathname}${win.location.search}#${href}`
+	});
+}
+/**
 * Create an in-memory history implementation.
 * Ideal for server rendering, tests, and non-DOM environments.
 * @link https://tanstack.com/router/latest/docs/framework/react/guide/history-types
@@ -382,4 +401,4 @@ function createRandomKey() {
 	return (Math.random() + 1).toString(36).substring(7);
 }
 //#endregion
-export { createMemoryHistory as n, parseHref as r, createBrowserHistory as t };
+export { parseHref as i, createHashHistory as n, createMemoryHistory as r, createBrowserHistory as t };
