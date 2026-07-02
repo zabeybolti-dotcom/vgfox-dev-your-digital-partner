@@ -2,6 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight, ArrowDown, MoreVertical, Send, FileText, Mail, ChevronRight } from "lucide-react";
+import heroBg from "/11.jpg";
+import priborImg from "/pribor.jpg";
+import brandImg from "/2.jpg";
 
 export const Route = createFileRoute("/")({
   component: LandingPage,
@@ -48,7 +51,7 @@ const PROJECTS_DATA: {
     title: "ПРИБОР-Т1 — хроматический тюнер",
     subtitle: "Android · Музыка",
     result: "Высокоточный музыкальный настройщик для Android с живой неоновой аудио-волной и эталонной точностью.",
-    image: "/pribor.jpg",
+    image: priborImg,
   },
   {
     id: 3,
@@ -63,7 +66,7 @@ const PROJECTS_DATA: {
     title: "Редизайн и цифровая айдентика бренда",
     subtitle: "Брендинг · Айдентика",
     result: "Разработка премиального визуального стиля, шрифтовой системы и гайдлайнов для технологичных ИИ-продуктов.",
-    image: "/2.jpg",
+    image: brandImg,
   },
 ];
 
@@ -200,7 +203,7 @@ function Hero() {
       className="relative min-h-[100dvh] flex items-center justify-center text-center bg-black overflow-hidden"
     >
       <img
-        src="/11.jpg"
+        src={heroBg}
         alt="AI Waves"
         className="absolute inset-0 w-full h-full object-cover object-center z-0 opacity-80"
       />
