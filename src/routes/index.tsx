@@ -623,7 +623,7 @@ function Contact() {
       icon: Send,
     },
     {
-      label: "написать в МАКС",
+      label: "Написать в МАКС",
       href: MAX_PROFILE_URL,
       external: true,
       icon: FileText,
