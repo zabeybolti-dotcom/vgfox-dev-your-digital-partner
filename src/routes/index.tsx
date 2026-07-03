@@ -421,7 +421,7 @@ function Portfolio() {
                       rel="noopener noreferrer"
                       className="text-[#0066cc] hover:text-[#0077ed] text-sm font-medium inline-flex items-center gap-1 mt-2 transition-colors"
                     >
-                      Открыть в Telegram &gt;
+                      @mastermy17_bot &gt;
                     </a>
                   </div>
                 </div>
