@@ -415,6 +415,14 @@ function Portfolio() {
                     <p className="text-sm text-neutral-300">
                       {p.result}
                     </p>
+                    <a
+                      href="https://t.me/mastermy17_bot"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#0066cc] hover:text-[#0077ed] text-sm font-medium inline-flex items-center gap-1 mt-2 transition-colors"
+                    >
+                      Открыть в Telegram &gt;
+                    </a>
                   </div>
                 </div>
               ) : p.id === 1 ? (
