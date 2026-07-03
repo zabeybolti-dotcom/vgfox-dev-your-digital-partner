@@ -55,9 +55,9 @@ const PROJECTS_DATA: {
   },
   {
     id: 3,
-    title: "MedBot — AI-ассистент клиники",
+    title: "NailBookBot — бот автозаписи для бьюти-мастеров",
     subtitle: "Telegram-бот · Автоматизация",
-    result: "Экономия 40 часов работы администратора / неделю",
+    result: "Экономия до 15 часов на переписках с клиентами в неделю",
     image:
       "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=2200&q=85",
   },
@@ -353,32 +353,54 @@ function Portfolio() {
               ) : p.id === 3 ? (
                 <div className="block group">
                   <div className="overflow-hidden rounded-2xl mb-4 w-full h-[240px] md:h-[280px]">
-                    <div className="w-full h-full bg-[#182533] font-sans flex flex-col">
-                      <div className="w-full h-12 bg-[#24303f] flex items-center justify-between px-3 border-b border-black/10 shrink-0">
+                    <div className="w-full h-full bg-[#0e1621] font-sans flex flex-col">
+                      <div className="w-full h-12 bg-[#17212b] flex items-center justify-between px-3 border-b border-black/10 shrink-0">
                         <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center font-bold text-white text-xs">
-                            M
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-sm">
+                            ✨
                           </div>
                           <div>
-                            <p className="text-xs font-semibold text-white leading-tight">MedBot 🤖</p>
+                            <p className="text-xs font-semibold text-white leading-tight">Запись к Мастеру</p>
                             <p className="text-[10px] text-[#7da3c5] leading-tight">бот</p>
                           </div>
                         </div>
                         <MoreVertical className="w-4 h-4 text-neutral-400" />
                       </div>
-                      <div className="flex-1 p-3 flex flex-col justify-end gap-2 overflow-hidden">
-                        <div className="bg-[#2b5278] text-white rounded-2xl rounded-tr-none p-3 text-[11px] max-w-[80%] self-end relative shadow-sm">
-                          Привет! Помоги расшифровать общий анализ крови. Гемоглобин 110, это нормально?
+                      <div className="flex-1 p-2 flex flex-col justify-end gap-1.5 overflow-hidden">
+                        <div className="bg-[#182533] rounded-xl p-2.5 space-y-1.5 self-start w-full max-w-[90%]">
+                          {[
+                            "Педикюр полный (гигиена+покрытие) — 2000₽",
+                            "Педикюр пальчики — 1200₽",
+                            "Снятие чужого материала — 500₽",
+                            "Дизайн (один палец) — 100₽",
+                            "Японский маникюр — 1000₽",
+                          ].map((text) => (
+                            <div
+                              key={text}
+                              className="bg-[#2b5278] text-white text-[11px] leading-tight rounded-lg px-3 py-2 text-center cursor-pointer hover:bg-[#366c9e] transition-colors"
+                            >
+                              {text}
+                            </div>
+                          ))}
+                        </div>
+                        <div className="bg-[#2b5278] text-white rounded-2xl rounded-tr-none p-3 text-[11px] max-w-[80%] self-end relative shadow-sm mt-1">
+                          🛠 Мои записи
                           <span className="text-[9px] text-[#7da3c5] absolute bottom-1 right-2 flex items-center gap-0.5">
-                            14:20
+                            12:36
                             <svg className="w-3 h-3" viewBox="0 0 16 11" fill="none">
                               <path d="M11.071 10.142l4.605-4.605-1.41-1.41-3.195 3.195-3.195-3.195-1.41 1.41 4.605 4.605z" fill="#7da3c5"/>
                             </svg>
                           </span>
                         </div>
-                        <div className="bg-[#202b36] text-white border border-white/5 rounded-2xl rounded-tl-none p-3 text-[11px] max-w-[85%] self-start relative shadow-sm">
-                          Гемоглобин 110 г/л ниже нормы для взрослых. Это может указывать на легкую анемию. Рекомендую проконсультироваться с терапевтом для подбора витаминов или железа.
-                          <span className="text-[9px] text-neutral-500 absolute bottom-1 right-2">14:21</span>
+                        <div className="bg-[#202b36] text-white border border-white/5 rounded-2xl rounded-tl-none p-3 text-[11px] max-w-[88%] self-start relative shadow-sm leading-relaxed">
+                          📅 Ваши записи:<br />
+                          🔹 Снятие чужого материала — 11.07.2026 в 14:00
+                          <span className="text-[9px] text-neutral-500 absolute bottom-1 right-2 flex items-center gap-0.5">
+                            12:36
+                            <svg className="w-3 h-3" viewBox="0 0 16 11" fill="none">
+                              <path d="M11.071 10.142l4.605-4.605-1.41-1.41-3.195 3.195-3.195-3.195-1.41 1.41 4.605 4.605z" fill="#5c6a7a"/>
+                            </svg>
+                          </span>
                         </div>
                       </div>
                     </div>
