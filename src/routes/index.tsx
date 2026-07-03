@@ -23,7 +23,7 @@ export const Route = createFileRoute("/")({
 //  CONTACTS
 // ============================================================================
 const TELEGRAM_URL = "https://t.me/vgfox";
-const MAX_PROFILE_URL = "https://max.ru/+79066001705"; // ← точная ссылка на профиль MAX
+const MAX_PROFILE_URL = "https://max.ru/u/f9LHodD0cOJ2yR33xJludOlyCzNjw-y9WtGopPG0wTpcHV2Kbc5hKHO_Jzs"; // ← точная ссылка на профиль MAX
 const EMAIL = "info@vgfox.ru";
 const EMAIL_URL = `mailto:${EMAIL}`;
 
@@ -623,7 +623,7 @@ function Contact() {
       icon: Send,
     },
     {
-      label: "Открыть резюме на МАКС",
+      label: "написать в МАКС",
       href: MAX_PROFILE_URL,
       external: true,
       icon: FileText,
